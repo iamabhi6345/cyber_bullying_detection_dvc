@@ -36,10 +36,10 @@ def initialize_dvc_storage(dvc_remote_name: str, dvc_remote_url: str) -> None:
         
 
 def commit_to_dvc(dvc_raw_data_folder: str, dvc_remote_name: str) -> None:
-    # current_version = run_shell_command("git tag --list | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
-    current_version: Literal[''] = ""
+    current_version = run_shell_command("git tag --list | sort -t v -k 2 -g | tail -1 | sed 's/v//'").strip()
+    
     if not current_version:
-        current_version: Literal['0'] = "0"
+        current_version = "0"
     next_version = f"v{int(current_version)+1}"
     run_shell_command(f"dvc add {dvc_raw_data_folder}")
     run_shell_command("git add .")
